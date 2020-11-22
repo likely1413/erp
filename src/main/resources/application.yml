@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active:
+      - dev
+
+
+
+      # JWT配置
+jwt:
+  # 密匙KEY
+  secret: JWTSecret
+  # HeaderKEY
+  tokenHeader: Authorization
+  # Token前缀字符
+  tokenPrefix: Wtzz-
+  # 过期时间 单位秒 1天后过期=86400 7天后过期=604800
+  expiration: 86400
+  # 配置不需要认证的接口，以英文逗号分隔，不可含空格
+  antMatchers: /**/**/**,/,/static/**,/*.html,/login/**,/favicon.ico

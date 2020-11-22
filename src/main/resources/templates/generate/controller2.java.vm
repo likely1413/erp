@@ -1,0 +1,119 @@
+package ${package.Controller};
+
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
+#if(${restControllerStyle})
+import org.springframework.web.bind.annotation.RestController;
+#else
+import org.springframework.stereotype.Controller;
+#end
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+/**
+ * $!{table.comment}
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+#if(${kotlin})
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
+
+#else
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+public class ${table.controllerName} {
+
+    private final ${table.serviceName} service;
+
+    public ${table.controllerName}(${table.serviceName} service) {
+            this.service = service;
+    }
+
+
+    /**
+     * ${table.comment}列表
+     *
+     * @return
+     */
+    @GetMapping("list")
+    public Result list() {
+        return Result.success(service.list());
+    }
+
+
+    /**
+     * 根据${table.comment}ID获取${table.comment}
+     *
+     * @return
+     */
+    @GetMapping("getById/{id}")
+    public Result getById(@NotNull(message = "${table.comment}ID不可空") @PathVariable Long id) {
+        return Result.success(service.list());
+    }
+
+
+    /**
+     * 添加${table.comment}
+     *
+     * @param ${entity}
+     * @return
+     */
+    @PostMapping("add")
+    public Result add(@Valid @RequestBody ${entity} ${entity}) {
+        if (service.save(${entity})) {
+            return Result.success();
+        }
+        return Result.failure();
+    }
+
+
+    /**
+     * 修改${table.comment}
+     *
+     * @param ${entity}
+     * @return
+     */
+    @PutMapping("alter")
+    public Result alter(@Valid @RequestBody ${entity} ${entity}) {
+        if (service.updateById(${entity})) {
+            return Result.success();
+        }
+        return Result.failure();
+    }
+
+
+    /**
+     * 删除${table.comment}
+     *
+     * @param id ${table.comment}ID
+     * @return
+     */
+    @DeleteMapping("delete/{id}")
+    public Result delete(@NotNull(message = "${table.comment}ID不可空") @PathVariable Long id) {
+        if (service.removeById(id)) {
+            return Result.success();
+        }
+        return Result.failure();
+    }
+
+
+
+
+
+#end
+
+}
+
+#end

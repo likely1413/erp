@@ -30,6 +30,20 @@ dependencies {
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    //阿里线程池
+    implementation 'com.alibaba:druid:1.2.3'
+    //mybatis-plus
+    compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.4.1'
+    //mybatis-plus代码生成器
+    compile 'com.baomidou:mybatis-plus-generator:3.4.1'
+    // 代码自动生成默认模板
+    //implementation 'org.apache.velocity:velocity-engine-core:2.2'
+    implementation 'org.freemarker:freemarker:2.3.30'
+    //HuTool Java开源工具包-->
+    implementation 'cn.hutool:hutool-all:5.5.1'
+    //JWT(Json Web Token)登录支持
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
 }
 
 test {
